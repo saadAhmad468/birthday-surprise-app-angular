@@ -1,0 +1,36 @@
+<div class="timer-container">
+  <div class="background-gradient"></div>
+  <div class="glass-card">
+    <div class="content-wrapper">
+      <h2 *ngIf="isBirthday" class="birthday-title">
+        Happy Birthday, {{ name }} 🎉
+      </h2>
+
+      <div class="countdown-display">
+        <div class="time-unit">
+          <span class="time-value">{{ countdown.days }}</span>
+          <span class="time-label">Days</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="time-unit">
+          <span class="time-value">{{ countdown.hours }}</span>
+          <span class="time-label">Hours</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="time-unit">
+          <span class="time-value">{{ countdown.minutes }}</span>
+          <span class="time-label">Minutes</span>
+        </div>
+        <span class="separator">:</span>
+        <div class="time-unit">
+          <span class="time-value">{{ countdown.seconds }}</span>
+          <span class="time-label">Seconds</span>
+        </div>
+      </div>
+
+      <button *ngIf="isBirthday" (click)="goToGift()" class="gift-button">
+        For You
+      </button>
+    </div>
+  </div>
+</div>

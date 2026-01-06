@@ -1,0 +1,18 @@
+/* Global styles - ensure vertical scrolling works */
+html, body {
+  height: auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+}
+
+/* Ensure no fixed heights block scrolling */
+* {
+  box-sizing: border-box;
+}

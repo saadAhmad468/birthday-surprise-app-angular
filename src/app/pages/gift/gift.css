@@ -1,0 +1,467 @@
+/* Main page wrapper - allows natural scrolling */
+.gift-page {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem;
+}
+
+/* Container with romantic gradient background */
+.gift-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 0;
+  padding: 2rem 0;
+  margin: 0 auto;
+}
+
+/* Animated romantic gradient background */
+.background-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Modern glassmorphism gift card */
+.gift-card {
+  position: relative;
+  width: 90%;
+  max-width: 550px;
+  min-height: 450px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 20px 60px rgba(31, 38, 135, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 80px rgba(118, 75, 162, 0.25),
+    0 0 120px rgba(240, 147, 251, 0.15);
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: cardEntrance 1s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2.5rem;
+  margin: 2rem auto;
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.gift-card:hover:not(.open) {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 
+    0 28px 80px rgba(31, 38, 135, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+    0 0 100px rgba(118, 75, 162, 0.35),
+    0 0 140px rgba(240, 147, 251, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.gift-card.open {
+  min-height: 520px;
+  padding: 2.5rem;
+  cursor: default;
+}
+
+.gift-card.open:hover {
+  transform: none;
+}
+
+/* Closed State */
+.gift-closed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  width: 100%;
+  animation: closedStateFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes closedStateFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Elegant gift icon */
+.gift-icon {
+  width: 140px;
+  height: 140px;
+  color: rgba(255, 255, 255, 0.98);
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 60px rgba(240, 147, 251, 0.4));
+  animation: iconFloat 4s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.gift-card:hover:not(.open) .gift-icon {
+  transform: scale(1.05);
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.03);
+  }
+}
+
+.gift-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Refined tap text */
+.tap-text {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+  animation: textPulse 2.5s ease-in-out infinite;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Open State */
+.gift-open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  animation: openStateAnimation 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes openStateAnimation {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Note Container */
+.note-container {
+  width: 100%;
+  max-width: 480px;
+  perspective: 1000px;
+}
+
+/* Elegant handwritten-style note paper */
+.note-paper {
+  background: linear-gradient(to bottom, #fffef8 0%, #fffef2 100%);
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  position: relative;
+  transform-style: preserve-3d;
+  animation: noteAppear 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.15s both;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+@keyframes noteAppear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.94) rotateX(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+/* Subtle paper texture */
+.note-paper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 4px
+    );
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Note Content */
+.note-content {
+  position: relative;
+  z-index: 1;
+}
+
+.note-text {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: #2a2a2a;
+  margin: 0;
+  text-align: left;
+  font-style: italic;
+  letter-spacing: 0.015em;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.signature {
+  display: block;
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  font-style: normal;
+  text-align: right;
+  font-family: 'Brush Script MT', 'Lucida Handwriting', 'Dancing Script', cursive;
+  letter-spacing: 0.05em;
+}
+
+/* Close hint */
+.close-hint {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  animation: closeHintFadeIn 0.7s ease-out 0.5s both;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes closeHintFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Memories button */
+.memories-btn {
+  margin-top: 2rem;
+  padding: 0.875rem 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+}
+
+.memories-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 24px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 20px rgba(118, 75, 162, 0.3);
+}
+
+.memories-btn:active {
+  transform: translateY(0);
+}
+
+/* Memories wrapper */
+.memories-wrapper {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .gift-page {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .gift-container {
+    padding: 1.5rem 0;
+  }
+
+  .gift-card {
+    width: 95%;
+    max-width: 100%;
+    min-height: 400px;
+    padding: 2.5rem 2rem;
+    border-radius: 24px;
+  }
+
+  .gift-card.open {
+    min-height: 480px;
+    padding: 2rem 1.5rem;
+  }
+
+  .gift-icon {
+    width: 110px;
+    height: 110px;
+  }
+
+  .note-paper {
+    padding: 2.5rem 2rem;
+    border-radius: 10px;
+  }
+
+  .note-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .signature {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .memories-btn {
+    padding: 0.75rem 1.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gift-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .gift-container {
+    padding: 1rem 0;
+  }
+
+  .gift-card {
+    min-height: 360px;
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .gift-card.open {
+    min-height: 440px;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .gift-icon {
+    width: 90px;
+    height: 90px;
+  }
+
+  .tap-text {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .note-paper {
+    padding: 2rem 1.75rem;
+    border-radius: 8px;
+  }
+
+  .note-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .signature {
+    font-size: 1.15rem;
+    margin-top: 1.25rem;
+  }
+
+  .close-hint {
+    font-size: 0.8rem;
+  }
+
+  .memories-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.8rem;
+    margin-top: 1.5rem;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

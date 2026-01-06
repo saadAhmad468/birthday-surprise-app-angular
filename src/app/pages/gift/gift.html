@@ -1,0 +1,52 @@
+<div class="gift-page">
+  <div class="gift-container">
+    <div class="background-gradient"></div>
+    <div 
+      class="gift-card" 
+      [class.open]="isOpen" 
+      (click)="toggleGift()"
+    >
+    <!-- Closed State -->
+    <div class="gift-closed" *ngIf="!isOpen">
+      <div class="gift-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="30" width="60" height="50" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <line x1="50" y1="30" x2="50" y2="80" stroke="currentColor" stroke-width="2"/>
+          <path d="M 20 30 L 30 20 L 50 30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M 50 30 L 70 20 L 80 30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="35" cy="50" r="3" fill="currentColor"/>
+          <circle cx="65" cy="50" r="3" fill="currentColor"/>
+        </svg>
+      </div>
+      <p class="tap-text">Tap to open</p>
+    </div>
+
+    <!-- Open State -->
+    <div class="gift-open" *ngIf="isOpen">
+      <div class="note-container">
+        <div class="note-paper">
+          <div class="note-content">
+            <p class="note-text">
+              My Ladi Ramsha,<br><br>
+              On this special day, I want you to know how much you mean to me. 
+              Every moment with you is a gift, and I'm grateful for your presence in my life.<br><br>
+              May this day bring you as much joy as you bring to mine.<br><br>
+              With all my love,<br>
+              <span class="signature">Saad Ahmad</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="close-hint">Tap to close</p>
+    </div>
+    
+    <button class="memories-btn" (click)="toggleMemories(); $event.stopPropagation()">
+      {{ showMemories ? 'Hide Memories' : 'Open Memories' }}
+    </button>
+    
+    <div class="memories-wrapper">
+      <app-memories *ngIf="showMemories"></app-memories>
+    </div>
+    </div>
+  </div>
+</div>

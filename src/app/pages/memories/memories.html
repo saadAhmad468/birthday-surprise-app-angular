@@ -1,0 +1,38 @@
+<div class="memories-container">
+  <div class="background-gradient"></div>
+  
+  <div class="memories-content">
+    <h1 class="page-title">Our Memories</h1>
+    
+    <div class="memories-grid">
+      <div 
+        *ngFor="let memory of memories; let i = index"
+        class="memory-card"
+        [class.open]="openCardIndex === i"
+        [id]="'memory-card-' + i"
+        (click)="toggleCard(i)">
+        
+        <!-- Card Front (Closed State) -->
+        <div class="card-front" *ngIf="openCardIndex !== i">
+          <div class="card-icon">💝</div>
+          <div class="card-number">{{ i + 1 }}</div>
+        </div>
+        
+        <!-- Card Back (Open State) -->
+        <div class="card-back" *ngIf="openCardIndex === i">
+          <button 
+            class="close-button" 
+            (click)="closeCard(); $event.stopPropagation()" 
+            type="button" 
+            aria-label="Close">
+            <span class="close-icon">×</span>
+          </button>
+          <div class="memory-content" (click)="$event.stopPropagation()">
+            <p class="memory-text">{{ memory }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
