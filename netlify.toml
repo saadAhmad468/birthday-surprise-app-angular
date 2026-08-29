@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist/birthday-surprise/browser"
+
+# SPA routing redirect for Angular routes (/gift, /memories, etc.)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
