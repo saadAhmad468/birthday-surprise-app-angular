@@ -1,38 +1,194 @@
 <div class="memories-container">
-  <div class="background-gradient"></div>
+  <div class="background-ambient"></div>
   
   <div class="memories-content">
-    <h1 class="page-title">Our Memories</h1>
+    <!-- Header Section -->
+    <div class="memories-header">
+      <div class="header-badge">💖 Our Special Memory Wall 💖</div>
+      <h2 class="page-title">17 Chapters of Our Love</h2>
+      <p class="page-subtitle">
+        Every picture carries a heartbeat, a memory, and a promise that I will love you forever, my Ladi.
+      </p>
+    </div>
+
+    <!-- Filter Category Tabs -->
+    <div class="filter-tabs">
+      <button 
+        class="tab-btn" 
+        [class.active]="activeCategory === 'all'" 
+        (click)="setCategory('all')"
+      >
+        ✨ All Memories (17)
+      </button>
+      <button 
+        class="tab-btn" 
+        [class.active]="activeCategory === 'dates'" 
+        (click)="setCategory('dates')"
+      >
+        ☕ Dates & Special Days
+      </button>
+      <button 
+        class="tab-btn" 
+        [class.active]="activeCategory === 'us'" 
+        (click)="setCategory('us')"
+      >
+        💑 Us Together
+      </button>
+      <button 
+        class="tab-btn" 
+        [class.active]="activeCategory === 'calls'" 
+        (click)="setCategory('calls')"
+      >
+        🌙 Video Calls
+      </button>
+      <button 
+        class="tab-btn" 
+        [class.active]="activeCategory === 'family'" 
+        (click)="setCategory('family')"
+      >
+        👨‍👩‍👧‍👦 Family & Engagement
+      </button>
+    </div>
     
-    <div class="memories-grid">
+    <!-- Polaroid Photo Cards Grid -->
+    <div class="polaroid-grid">
       <div 
-        *ngFor="let memory of memories; let i = index"
-        class="memory-card"
-        [class.open]="openCardIndex === i"
-        [id]="'memory-card-' + i"
-        (click)="toggleCard(i)">
-        
-        <!-- Card Front (Closed State) -->
-        <div class="card-front" *ngIf="openCardIndex !== i">
-          <div class="card-icon">💝</div>
-          <div class="card-number">{{ i + 1 }}</div>
+        *ngFor="let memory of filteredMemories; let i = index"
+        class="polaroid-card"
+        [style.transform]="'rotate(' + memory.rotation + 'deg)'"
+        (click)="openLightbox(i)"
+      >
+        <!-- Cute Washi Tape / Pin on Top -->
+        <div class="washi-tape"></div>
+
+        <!-- Image Frame (Uncropped full image with ambient romantic background) -->
+        <div class="photo-frame">
+          <div class="photo-ambient-bg" [style.background-image]="'url(&quot;' + memory.image + '&quot;)'"></div>
+          <img [src]="memory.image" [alt]="memory.title" class="polaroid-img" loading="lazy" />
+          <div class="photo-overlay">
+            <span class="zoom-text">🔍 Tap to read story</span>
+          </div>
         </div>
+
+        <!-- Polaroid Caption / Footer -->
+        <div class="polaroid-caption">
+          <div class="category-tag">{{ memory.categoryLabel }}</div>
+          <h3 class="polaroid-title">{{ memory.title }}</h3>
+          <p class="polaroid-sub">{{ memory.subtitle }}</p>
+          
+          <div class="polaroid-footer">
+            <button 
+              class="like-button" 
+              [class.liked]="memory.isLiked"
+              (click)="toggleLike(memory, $event)"
+              title="Like this memory"
+            >
+              <span class="heart-icon">{{ memory.isLiked ? '❤️' : '🤍' }}</span>
+              <span class="like-count">{{ memory.likes }}</span>
+            </button>
+            <span class="view-pill">View Story ➔</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reasons Why I Love You Interactive Flip Section -->
+    <div class="reasons-section">
+      <div class="section-divider">
+        <span>🌹 🌹 🌹</span>
+      </div>
+      <div class="reasons-header">
+        <h2 class="reasons-title">8 Reasons Why You Are My World ❤️</h2>
+        <p class="reasons-subtitle">Tap any card below to discover a sweet secret message from Saad</p>
+      </div>
+
+      <div class="reasons-grid">
+        <div 
+          *ngFor="let reason of reasons"
+          class="reason-card"
+          [class.flipped]="reason.flipped"
+          (click)="flipReason(reason)"
+        >
+          <div class="card-inner">
+            <!-- Front -->
+            <div class="card-face card-face-front">
+              <div class="reason-icon">{{ reason.icon }}</div>
+              <h4 class="reason-front-title">{{ reason.title }}</h4>
+              <span class="tap-indicator">✨ Tap to reveal</span>
+            </div>
+            <!-- Back -->
+            <div class="card-face card-face-back">
+              <span class="quote-mark">“</span>
+              <p class="reason-desc">{{ reason.description }}</p>
+              <span class="love-signature">— Saad ❤️</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Make a Birthday Wish Interactive Section -->
+    <div class="wish-section">
+      <div class="wish-card">
+        <div class="wish-star-icon" (click)="makeWish()">🌟</div>
+        <h3 class="wish-title">Make A Birthday Wish, Meri Ladi</h3>
+        <p class="wish-sub">Aankhein band kro, dil se sab se pyari dua mango, or is star pe tap kro!</p>
         
-        <!-- Card Back (Open State) -->
-        <div class="card-back" *ngIf="openCardIndex === i">
-          <button 
-            class="close-button" 
-            (click)="closeCard(); $event.stopPropagation()" 
-            type="button" 
-            aria-label="Close">
-            <span class="close-icon">×</span>
-          </button>
-          <div class="memory-content" (click)="$event.stopPropagation()">
-            <p class="memory-text">{{ memory }}</p>
+        <div *ngIf="wished" class="wish-granted">
+          <span class="wish-sparkle">✨ 🎉 💖 🌟 🎊 ✨</span>
+          <p class="wish-blessing">
+            "May Allah tumhe hamesha khush, abad, sehat mand or salamat rakhy. I promise to always stand by your side, protect your smile, and love you forever. Inshallah agla birthday sath celebrate krain gy!"
+          </p>
+          <span class="forever-tag">Forever & Always, Saad Ahmad 💍❤️</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div class="lightbox-modal" *ngIf="selectedPhotoIndex !== null" (click)="closeLightbox()">
+    <div class="lightbox-dialog" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeLightbox()" aria-label="Close">✕</button>
+      
+      <!-- Nav Arrows -->
+      <button class="nav-arrow nav-prev" (click)="prevPhoto(); $event.stopPropagation()" aria-label="Previous">❮</button>
+      <button class="nav-arrow nav-next" (click)="nextPhoto(); $event.stopPropagation()" aria-label="Next">❯</button>
+
+      <div class="lightbox-body" *ngIf="filteredMemories[selectedPhotoIndex]">
+        <div class="lightbox-image-container">
+          <img 
+            [src]="filteredMemories[selectedPhotoIndex].image" 
+            [alt]="filteredMemories[selectedPhotoIndex].title" 
+            class="lightbox-img" 
+          />
+        </div>
+        <div class="lightbox-details">
+          <div class="lightbox-tag">{{ filteredMemories[selectedPhotoIndex].categoryLabel }}</div>
+          <h2 class="lightbox-title">{{ filteredMemories[selectedPhotoIndex].title }}</h2>
+          <h4 class="lightbox-sub">{{ filteredMemories[selectedPhotoIndex].subtitle }}</h4>
+          
+          <div class="lightbox-story-box">
+            <span class="quote-symbol">“</span>
+            <p class="lightbox-story">{{ filteredMemories[selectedPhotoIndex].story }}</p>
+          </div>
+
+          <div class="lightbox-footer">
+            <button 
+              class="like-button large" 
+              [class.liked]="filteredMemories[selectedPhotoIndex].isLiked"
+              (click)="toggleLike(filteredMemories[selectedPhotoIndex], $event)"
+            >
+              <span class="heart-icon">{{ filteredMemories[selectedPhotoIndex].isLiked ? '❤️' : '🤍' }}</span>
+              <span>{{ filteredMemories[selectedPhotoIndex].likes }} Loves</span>
+            </button>
+            <span class="counter-pill">{{ selectedPhotoIndex + 1 }} of {{ filteredMemories.length }}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>
+
 

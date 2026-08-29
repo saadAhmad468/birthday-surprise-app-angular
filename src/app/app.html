@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<!-- Floating Romantic Hearts Ambient -->
+<div class="floating-hearts-bg">
+  <div 
+    *ngFor="let h of hearts" 
+    class="heart-particle"
+    [style.left.%]="h.left"
+    [style.font-size.px]="h.size"
+    [style.animation-duration.s]="h.duration"
+    [style.animation-delay.s]="h.delay"
+  >
+    {{ h.icon }}
+  </div>
+</div>
+
+<!-- Floating Ambient Romantic Music Indicator (Always Playing) -->
+<div class="music-badge" title="Playing: Tum Hi Ho / Hindi Romantic Anthem">
+  <span class="music-icon pulse">💖</span>
+  <span class="music-label">Tum Hi Ho — For My Ramsha 🎶</span>
+  <div class="sound-wave">
+    <span></span><span></span><span></span>
+  </div>
+</div>
+
+<main class="app-main-content">
+  <router-outlet></router-outlet>
+</main>
+

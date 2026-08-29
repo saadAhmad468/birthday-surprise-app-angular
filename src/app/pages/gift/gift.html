@@ -1,52 +1,111 @@
 <div class="gift-page">
   <div class="gift-container">
-    <div class="background-gradient"></div>
+    <div class="background-ambient"></div>
+
+    <!-- Confetti when Gift Opens -->
+    <div class="confetti-wrapper" *ngIf="isOpen">
+      <div 
+        *ngFor="let c of giftConfetti" 
+        class="confetti-piece"
+        [style.left.%]="c.left"
+        [style.background-color]="c.color"
+        [style.animation-delay.s]="c.delay"
+        [style.width.px]="c.size"
+        [style.height.px]="c.size * 1.5"
+      ></div>
+    </div>
+
+    <!-- Top Banner -->
+    <div class="gift-hero-banner">
+      <div class="love-badge">A Birthday Surprise From Saad Ahmad</div>
+      <h1 class="gift-hero-title">Happy Birthday, My Queen Ramsha 👑</h1>
+      <p class="gift-hero-sub">I made this entire website just for you to celebrate your existence & our beautiful journey.</p>
+    </div>
+
+    <!-- 3D Interactive Gift Box -->
     <div 
       class="gift-card" 
       [class.open]="isOpen" 
       (click)="toggleGift()"
     >
-    <!-- Closed State -->
-    <div class="gift-closed" *ngIf="!isOpen">
-      <div class="gift-icon">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="30" width="60" height="50" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
-          <line x1="50" y1="30" x2="50" y2="80" stroke="currentColor" stroke-width="2"/>
-          <path d="M 20 30 L 30 20 L 50 30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-          <path d="M 50 30 L 70 20 L 80 30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="35" cy="50" r="3" fill="currentColor"/>
-          <circle cx="65" cy="50" r="3" fill="currentColor"/>
-        </svg>
-      </div>
-      <p class="tap-text">Tap to open</p>
-    </div>
-
-    <!-- Open State -->
-    <div class="gift-open" *ngIf="isOpen">
-      <div class="note-container">
-        <div class="note-paper">
-          <div class="note-content">
-            <p class="note-text">
-              My Ladi Ramsha,<br><br>
-              On this special day, I want you to know how much you mean to me. 
-              Every moment with you is a gift, and I'm grateful for your presence in my life.<br><br>
-              May this day bring you as much joy as you bring to mine.<br><br>
-              With all my love,<br>
-              <span class="signature">Saad Ahmad</span>
-            </p>
+      <!-- Closed State: 3D Animated Gift Box -->
+      <div class="gift-closed" *ngIf="!isOpen">
+        <div class="gift-box-3d">
+          <div class="gift-lid">
+            <div class="ribbon-bow">🎀</div>
+            <div class="ribbon-band-h"></div>
+          </div>
+          <div class="gift-base">
+            <div class="ribbon-band-v"></div>
+            <div class="gift-sparkles">✨</div>
           </div>
         </div>
+        <div class="tap-prompt">
+          <span class="sparkle-bullet">✨</span>
+          <span class="tap-text">Tap the gift box to unwrap your love letter!</span>
+          <span class="sparkle-bullet">✨</span>
+        </div>
       </div>
-      <p class="close-hint">Tap to close</p>
+
+      <!-- Open State: Luxury Parchment Love Letter -->
+      <div class="gift-open" *ngIf="isOpen">
+        <div class="note-container">
+          <div class="note-paper">
+            <!-- Wax Seal Stamp -->
+            <div class="wax-seal">
+              <div class="wax-inner">S ❤️ R</div>
+            </div>
+
+            <div class="note-header">
+              <span class="letter-date">August 29 — Our Special Day 💕</span>
+              <h2 class="letter-salutation">Happy Birthday My Ladi 😘💖</h2>
+            </div>
+
+            <div class="note-content">
+              <p class="note-text">
+                Happy birthday my ladi 😘😘😘😘🥹🥹💖💖😋😋🥳🥳🥳🥳🥳🥳🥳🥳🥳🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩😜😜😜😝😝🤩🤩🥳🥳🥳
+                <br><br>
+                <strong>A special occasion for us:</strong><br>
+                Almost more than 2 years in this beautiful journey and in total of 8 years together and inshallah many moreeee. 
+                <br><br>
+                Hamy halat na jora, muhabat wapis la ayi, muqadar thy yaa Jo b thaa but...
+                <br><br>
+                Zindagi es sa zada kabhi khubsurat ni ho skti thi, you are the bestest partner a man can have. You are beautiful, you are loving, you are caring, you are Darling, you are sexy. Allllll in one pack. 
+                <br><br>
+                Pta ni Zindagi ma kon saa acha kaam Kya thaa Jo TU Mili ❤️
+                <br><br>
+                But I promise I will never let you down. I will never leave you alone. I will always take your side. I will always stand in front of you. No one can even see you with evil eyes. I will love you forever. Take care of you for your whole life.
+                <br><br>
+                Chahy hm jitna b lar Le akhir ma hm na ana toh edhr hi ha. Hr larai k baad Mera toh Pyar ar bar jata ha tumhara pta ni 🙈😂
+                <br><br>
+                Well happy happy birthday on our special day.
+                <br><br>
+                Inshallah next birthday akhty celebrate kry gy. 🎂🎉
+              </p>
+              
+              <div class="letter-signature-block">
+                <span class="sign-off">Forever & Always Yours,</span>
+                <span class="signature">Saad Ahmad 💍❤️</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-open-actions">
+          <button class="scroll-memories-btn" (click)="scrollToMemories(); $event.stopPropagation()">
+            <span>📸 View Our 17 Photo Memories Below</span>
+            <span class="down-arrow">⬇</span>
+          </button>
+        </div>
+      </div>
+
     </div>
-    
-    <button class="memories-btn" (click)="toggleMemories(); $event.stopPropagation()">
-      {{ showMemories ? 'Hide Memories' : 'Open Memories' }}
-    </button>
-    
-    <div class="memories-wrapper">
-      <app-memories *ngIf="showMemories"></app-memories>
+
+    <!-- Memories Section Component -->
+    <div id="memories-section" class="memories-wrapper" *ngIf="showMemories">
+      <app-memories></app-memories>
     </div>
-    </div>
+
   </div>
 </div>
+

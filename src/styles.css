@@ -1,4 +1,25 @@
-/* Global styles - ensure vertical scrolling works */
+:root {
+  --font-main: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-cursive: 'Great Vibes', cursive;
+  --font-handwriting: 'Dancing Script', cursive;
+  --font-caveat: 'Caveat', cursive;
+
+  --color-primary: #ff4d88;
+  --color-primary-light: #ff75a0;
+  --color-primary-dark: #d81b60;
+  --color-secondary: #9c27b0;
+  --color-accent: #ffd166;
+  --color-gold: #f6c85f;
+  --color-rose-gold: #e8a598;
+  
+  --bg-dark-romantic: #140b24;
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 15, 55, 0.37);
+}
+
+/* Global styles */
 html, body {
   height: auto;
   min-height: 100vh;
@@ -6,13 +27,87 @@ html, body {
   overflow-y: auto;
   margin: 0;
   padding: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg-dark-romantic);
+  color: #ffffff;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   position: relative;
+  background: radial-gradient(circle at 50% 20%, #301648 0%, #170b28 50%, #0c0517 100%);
+  background-attachment: fixed;
 }
 
-/* Ensure no fixed heights block scrolling */
 * {
   box-sizing: border-box;
+}
+
+/* Custom romantic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(20, 10, 35, 0.8);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff4d88, #9c27b0);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff75a0, #ba68c8);
+}
+
+/* Floating romantic particles */
+.floating-hearts-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart-particle {
+  position: absolute;
+  bottom: -40px;
+  color: rgba(255, 117, 160, 0.4);
+  font-size: 20px;
+  user-select: none;
+  animation: floatUp 12s linear infinite;
+}
+
+/* Global Confetti Falling */
+.confetti-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -25px;
+  border-radius: 2px;
+  animation: confettiFall 6s linear infinite;
+  opacity: 0.9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotateZ(0deg) rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotateZ(720deg) rotateX(360deg);
+    opacity: 0;
+  }
 }

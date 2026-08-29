@@ -1,9 +1,89 @@
 <div class="timer-container">
-  <div class="background-gradient"></div>
-  <div class="glass-card">
-    <div class="content-wrapper">
-      <h2 *ngIf="isBirthday" class="birthday-title">
-        Happy Birthday, {{ name }} 🎉
+  <div class="background-ambient">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+  </div>
+
+  <!-- Confetti Layer -->
+  <div class="confetti-wrapper" *ngIf="showConfetti || isBirthday">
+    <div 
+      *ngFor="let c of confettiPieces" 
+      class="confetti-piece"
+      [style.left.%]="c.left"
+      [style.background-color]="c.color"
+      [style.animation-delay.s]="c.delay"
+      [style.width.px]="c.size"
+      [style.height.px]="c.size * 1.5"
+    ></div>
+  </div>
+
+  <div class="glass-card" [class.birthday-mode]="isBirthday">
+    
+    <!-- Birthday Celebration State (Today!) -->
+    <div *ngIf="isBirthday" class="birthday-content">
+      <div class="love-badge">
+        <span>👑 Special Birthday Surprise For My Ladi 👑</span>
+      </div>
+
+      <h1 class="birthday-title">
+        Happy Birthday, <span class="highlight-name">{{ name }}</span>! 🎉💖
+      </h1>
+      
+      <p class="birthday-subtitle">
+        To my lovely <span class="nickname-tag">"{{ nickname }}"</span> — Pta ni zindagi ma kon saa acha kaam kiya thaa jo tu mili. Today is all about celebrating you! 😘✨
+      </p>
+
+      <!-- Interactive Birthday Cake -->
+      <div class="cake-container" (click)="blowCandle()">
+        <div class="cake-hint" *ngIf="!candleBlown">
+          <span class="sparkle-icon">✨</span> Candle pe tap kro or dil se wish mango meri jaan! 🎂🕯️
+        </div>
+        <div class="cake-hint blown" *ngIf="candleBlown">
+          🌟 Tumhari har khwahish or dua qubool ho meri Ladi! Ameen 💖
+        </div>
+
+        <div class="cake-wrapper" [class.blown]="candleBlown">
+          <!-- Candle & Flame -->
+          <div class="candle">
+            <div class="flame" *ngIf="!candleBlown"></div>
+            <div class="smoke" *ngIf="candleBlown"></div>
+            <div class="wick"></div>
+          </div>
+          <!-- Cake Layers -->
+          <div class="cake-layer top-layer">
+            <div class="icing"></div>
+            <div class="berries">🍓 🍒 🍓</div>
+          </div>
+          <div class="cake-layer middle-layer">
+            <div class="cream-strip"></div>
+          </div>
+          <div class="cake-layer bottom-layer">
+            <div class="chocolate-drip"></div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <!-- Action Button to Open Surprise -->
+      <div class="action-section">
+        <button (click)="goToGift()" class="gift-button pulse-btn">
+          <span class="btn-icon">🎁</span>
+          <span class="btn-text">Open Your Birthday Surprise Ladi</span>
+          <span class="btn-arrow">➔</span>
+        </button>
+        <p class="action-subtext">Tap above to unlock your love letter & our 17 memories ❤️</p>
+      </div>
+    </div>
+
+    <!-- Countdown State (Before Birthday) -->
+    <div *ngIf="!isBirthday" class="content-wrapper">
+      <div class="love-badge">
+        <span>Counting Down to Ramsha's Birthday ⏳</span>
+      </div>
+
+      <h2 class="pre-birthday-title">
+        Something Magical is Coming Soon... ✨
       </h2>
 
       <div class="countdown-display">
@@ -28,9 +108,9 @@
         </div>
       </div>
 
-      <button *ngIf="isBirthday" (click)="goToGift()" class="gift-button">
-        For You
-      </button>
+      <p class="wait-text">Every second brings us closer to your special day 💕</p>
     </div>
+
   </div>
 </div>
+
