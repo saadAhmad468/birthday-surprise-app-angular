@@ -6,19 +6,12 @@ import { Injectable } from '@angular/core';
 export class BirthdayService {
 
   isBirthdayToday(dob: string): boolean {
-    const now = new Date();
-    // Keep birthday surprise open until August 31, 2026 11:59:59 PM
-    const startDate = new Date(2026, 7, 29, 0, 0, 0, 0); // Month 7 is August (0-indexed)
-    const expiryDate = new Date(2026, 7, 31, 23, 59, 59, 999);
-
-    if (now >= startDate && now <= expiryDate) {
-      return true;
-    }
-
+    const today = new Date();
     const [_, month, day] = dob.split('-').map(Number);
+
     return (
-      now.getMonth() + 1 === month &&
-      now.getDate() === day
+      today.getMonth() + 1 === month &&
+      today.getDate() === day
     );
   }
 
